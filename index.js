@@ -10,6 +10,8 @@ const questions = [
   "What usage information does a user need to know?",
   "How can a user contribute to this repository?",
   "How can a user run tests on this applicaiton, if available?",
+  "What email can you be contacted at?",
+  "What is your GitHub username?",
 ];
 
 inquirer
@@ -45,12 +47,22 @@ inquirer
       name: "appTests",
     },
     {
+      type: "input",
+      message: questions[6],
+      name: "emailContact",
+    },
+    {
+      type: "input",
+      message: questions[7],
+      name: "theHub",
+    },
+    {
       type: "list",
       message: "What type of license is this application under?",
       choices: [
         "GNU General Public License v2.0",
         "MIT License",
-        "Educational Community License v2.0",
+        "Mozilla Public License 2.0",
         "Do What the F*ck You Want To Public License",
       ],
       name: "license",
@@ -65,21 +77,44 @@ inquirer
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
+  // Switch to assign correct license badge
+  var licenseURL = "";
+  switch (data.license) {
+    case "GNU General Public License v2.0":
+      licenseURL =
+        "[![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)";
+      break;
+    case "MIT License":
+      licenseURL =
+        "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)";
+      break;
+    case "Do What the F*ck You Want To Public License":
+      licenseURL =
+        "[![License: WTFPL](https://img.shields.io/badge/License-WTFPL-brightgreen.svg)](http://www.wtfpl.net/about/)";
+      break;
+    case "Mozilla Public License 2.0":
+      licenseURL =
+        "[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)";
+      break;
+  }
+
   fs.writeFile(
     `./Example/${fileName}.md`,
     `
- # <${data.appTitle}>\n
+ # ${data.appTitle}\n
 
 ## Description\n
 ${data.appDesc}\n
+${licenseURL}\n
 
 ## Table of Contents\n
 - [Installation](#installation)\n
 - [Usage](#usage)\n
 - [Credits](#credits)\n
 - [License](#license)\n
-- [How To Contribute](#howToContribute)\n
-- [Tests](#Tests)\n
+- [How To Contribute](#how-to-contribute)\n
+- [Tests](#tests)\n
+- [Questions](#questions)
 
 ## Installation\n
 ${data.installInstr}\n
@@ -87,7 +122,7 @@ ${data.installInstr}\n
 ## Usage\n
 ${data.usageInfo}\n
 
-Please add a screenshot/gif/video here ![alt text](./filePath/file.ext)\n
+Please add a screenshot/gif/video here!\n
 
 ## Credits\n
 List Collaborators here and links to their GitHub profiles\n
@@ -98,8 +133,12 @@ This project is licensed under the ${data.license}.\n
 ## How to Contribute\n
 ${data.repoContribute}\n
 
-// ## Tests\n
-${data.appTests}\n`,
+## Tests\n
+${data.appTests}\n
+
+## Questions\n
+Email all questions to the following: ${data.emailContact}
+You can connect with me on [GitHub here](https://github.com/${data.theHub})!: ${data.theHub}`,
 
     (err) => (err ? console.error(err) : console.log("Commit logged!"))
   );
