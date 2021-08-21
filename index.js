@@ -14,6 +14,7 @@ const questions = [
   "What is your GitHub username?",
 ];
 
+// Propmts user questions in the console
 inquirer
   .prompt([
     {
@@ -67,8 +68,6 @@ inquirer
       ],
       name: "license",
     },
-    //GitHub username
-    //Email
   ])
 
   .then((response) => {
@@ -99,7 +98,7 @@ function writeToFile(fileName, data) {
   }
 
   fs.writeFile(
-    `./Example/${fileName}.md`,
+    `${fileName}.md`,
     `
  # ${data.appTitle}\n
 
@@ -137,8 +136,8 @@ ${data.repoContribute}\n
 ${data.appTests}\n
 
 ## Questions\n
-Email all questions to the following: ${data.emailContact}
-You can connect with me on [GitHub here](https://github.com/${data.theHub})!: ${data.theHub}`,
+Email all questions to the following: ${data.emailContact}\n
+You can connect with me on [GitHub here](https://github.com/${data.theHub})!`,
 
     (err) => (err ? console.error(err) : console.log("Commit logged!"))
   );
