@@ -30,6 +30,8 @@ User's must clone this repository onto their local computer and install the node
 
 Once the steps within the Installation section are complete, the user must navigate to the repository location within their terminal and enter 'node index.js'. This command will prompt the user to fill in basic questions that will populate the generated README file. No question is required, with the exception of the repository license. After all questions are complete, the README.md file within the repository will be updated to reflect the information provided by the user.
 
+Walkthrough of the program:
+
 ## Credits
 
 There are no additional contributers to this repository.
@@ -44,7 +46,7 @@ Please contact me at the email provided in the Questions section if you wish to 
 
 ## Tests
 
-There are no tests available for this application.
+There are no tests available for this application. You can see an example of a completed README generated from the program [here](./Example/README.md)
 
 ## Questions
 
